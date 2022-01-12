@@ -14,6 +14,7 @@ const Client = function (options) {
     debugRemotePort = 9000,
     logRemotePort = 3332,
     timeout,
+    cliCallback,
   } = options;
   // 日志类型，verbose或者info，测试阶段建议verbose
   this.logger = createLogger(logType);
@@ -27,6 +28,7 @@ const Client = function (options) {
   this.timeout = timeout;
   this.Url = Url;
   this.Token = Token;
+  this.cliCallback = cliCallback;
 };
 
 /**
@@ -34,7 +36,13 @@ const Client = function (options) {
  * @returns the client promise
  */
 Client.prototype._connect = async function () {
-  return connect({ url: this.Url, token: this.Token, logger: this.logger, timeout: this.timeout });
+  return connect({
+    url: this.Url,
+    token: this.Token,
+    logger: this.logger,
+    timeout: this.timeout,
+    cliCallback: this.cliCallback,
+  });
 };
 
 /**

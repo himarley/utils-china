@@ -24,7 +24,7 @@ RemoteDebug.prototype.remoteDebug = async function (cliCallback) {
     if (!Url || !Token) {
       throw Error('调试开启失败：接口未正常返回远程连接信息。请尝试重新开启');
     }
-    this.client = new WshubClient({ Url, Token });
+    this.client = new WshubClient({ Url, Token, cliCallback });
     try {
       await this.client.forwardDebug();
       cliCallback('远程调试链接：ws://127.0.0.1:9222');

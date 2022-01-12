@@ -262,6 +262,7 @@ function connect(options) {
   const token = options.token;
   const logger = options.logger;
   const _a = options.timeout;
+  const cliCallback = options.cliCallback;
   const timeout = _a === undefined ? -1 : _a;
   const agent = wshubProxy1.default();
   const socket = socketIo.connect(url, { query: { token }, agent });
@@ -314,9 +315,15 @@ function connect(options) {
       }
       resolve(new Client(socket, streamSocket, logger));
     });
-    socket.on('connect_error', reject);
-    socket.on('error', reject);
-    socket.on('disconnect', reject);
+    const errorCallback = () => cliCallback('连接错误，请检查网络连接后重试', { type: 'error' });
+    socket.on('connect_error', errorCallback);
+    socket.on('error', errorCallback);
+    socket.on('disconnect', (reason) => {
+      if (reason.toString().includes('timeout')) {
+        cliCallback('连接超时，请检查网络连接后重试', { type: 'error' });
+        errorCallback();
+      }
+    });
   });
 }
 exports.default = connect;
