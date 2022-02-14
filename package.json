@@ -1,7 +1,7 @@
 {
   "name": "@serverless/utils-china",
   "description": "Tencent Cloud Tools For Serverless Framewoek",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "publishConfig": {
     "access": "public"
   },
@@ -36,7 +36,7 @@
     ]
   },
   "dependencies": {
-    "@tencent-sdk/capi": "^1.1.8",
+    "@tencent-sdk/capi": "^2.0.0",
     "dijkstrajs": "^1.0.1",
     "dot-qs": "0.2.0",
     "duplexify": "^4.1.1",

@@ -18,15 +18,15 @@ const ApiRequest = function (auth, func, Region, debugOptions) {
   }
 
   this.client = new Capi({
-    Region,
-    SecretId,
-    SecretKey,
-    Token,
-    ServiceType: 'scf',
+    region: Region,
+    secretId: SecretId,
+    secretKey: SecretKey,
+    token: Token,
+    serviceType: 'scf',
     baseHost: 'tencentcloudapi.com',
   });
   this.commonParams = {
-    Version: '2018-04-16',
+    version: '2018-04-16',
     ...body,
   };
   this.debugOptions = debugOptions;
@@ -35,7 +35,7 @@ const ApiRequest = function (auth, func, Region, debugOptions) {
 ApiRequest.prototype.request = async function (action, params) {
   const result = await this.client.request(
     {
-      Action: action,
+      action,
       ...this.commonParams,
       ...params,
     },
