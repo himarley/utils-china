@@ -20,13 +20,13 @@ class Serverless {
     this._slsClient = new Capi({
       debug: false,
       host: 'sls.tencentcloudapi.com',
-      Version: '2020-02-05',
-      Region: this.region,
-      SecretId: secretId,
-      SecretKey: secretKey,
-      Token: options.token,
-      ServiceType: 'sls',
-      RequestClient: options.sdkAgent || 'ServerlessFramework',
+      version: '2020-02-05',
+      region: this.region,
+      secretId,
+      secretKey,
+      token: options.token,
+      serviceType: 'sls',
+      requestClient: options.sdkAgent || 'ServerlessFramework',
     });
   }
 
@@ -129,7 +129,7 @@ class Serverless {
 
   async _call(api, params) {
     const { Response } = await this._slsClient.request({
-      Action: api,
+      action: api,
       ...params,
     });
     if (Response.Error) {
