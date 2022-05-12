@@ -89,7 +89,12 @@ const DescribeCodingCIBuildsResponse = models.DescribeCodingCIBuildsResponse;
  */
 class CodingClient extends AbstractClient {
   constructor(credential, region, profile) {
-    super('coding.tencentcloudapi.com', '2019-10-21', credential, region, profile);
+    const hostType = process.env.SERVERLESS_TENCENT_NET_TYPE || 'outer';
+    let host = 'coding.tencentcloudapi.com';
+    if (hostType === 'inner') {
+      host = 'coding.internal.tencentcloudapi.com';
+    }
+    super(host, '2019-10-21', credential, region, profile);
   }
 
   /**

@@ -29,7 +29,12 @@ class GetUserInformationResponse extends AbstractModel {
 
 class UserInformationClient extends AbstractClient {
   constructor(credential, region, profile) {
-    super('cam.tencentcloudapi.com', '2019-01-16', credential, region, profile);
+    const hostType = process.env.SERVERLESS_TENCENT_NET_TYPE || 'outer';
+    let host = 'cam.tencentcloudapi.com';
+    if (hostType === 'inner') {
+      host = 'cam.internal.tencentcloudapi.com';
+    }
+    super(host, '2019-01-16', credential, region, profile);
   }
 
   GetUserAppId(req, cb) {

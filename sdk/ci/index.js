@@ -215,6 +215,7 @@ class Ci {
     steps.addShell('echo TENCENT_TOKEN=$TENCENT_TOKEN >> .env');
     steps.addShell('echo SERVERLESS_PLATFORM_VENDOR=tencent >> .env');
     steps.addShell('echo SERVERLESS_PLATFORM_STAGE=$SERVERLESS_PLATFORM_STAGE >> .env');
+    steps.addShell('echo SERVERLESS_TENCENT_NET_TYPE=$SERVERLESS_TENCENT_NET_TYPE >> .env');
 
     const npmshell =
       "''cat > npm.sh << EOF\r\n#! /bin/bash\r\n" +

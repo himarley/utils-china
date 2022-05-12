@@ -16,14 +16,18 @@ const ApiRequest = function (auth, func, Region, debugOptions) {
   if (!body.FunctionName) {
     throw Error('The FunctionName does not exist.');
   }
-
+  const hostType = process.env.SERVERLESS_TENCENT_NET_TYPE || 'outer';
+  let host = 'scf.tencentcloudapi.com';
+  if (hostType === 'inner') {
+    host = 'scf.internal.tencentcloudapi.com';
+  }
   this.client = new Capi({
     region: Region,
     secretId: SecretId,
     secretKey: SecretKey,
     token: Token,
     serviceType: 'scf',
-    baseHost: 'tencentcloudapi.com',
+    host,
   });
   this.commonParams = {
     version: '2018-04-16',

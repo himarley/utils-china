@@ -49,7 +49,12 @@ const UpdateFunctionCodeResponse = models.UpdateFunctionCodeResponse;
  */
 class ScfClient extends AbstractClient {
   constructor(credential, region, profile) {
-    super('scf.tencentcloudapi.com', '2018-04-16', credential, region, profile);
+    const hostType = process.env.SERVERLESS_TENCENT_NET_TYPE || 'outer';
+    let host = 'scf.tencentcloudapi.com';
+    if (hostType === 'inner') {
+      host = 'scf.internal.tencentcloudapi.com';
+    }
+    super(host, '2018-04-16', credential, region, profile);
   }
 
   /**

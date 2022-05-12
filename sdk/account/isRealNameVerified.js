@@ -3,9 +3,14 @@
 const { Capi } = require('@tencent-sdk/capi');
 
 async function isRealNameVerified({ secretId, secretKey, token }) {
+  const hostType = process.env.SERVERLESS_TENCENT_NET_TYPE || 'outer';
+  let host = 'account.tencentcloudapi.com';
+  if (hostType === 'inner') {
+    host = 'account.internal.tencentcloudapi.com';
+  }
   const client = new Capi({
     debug: false,
-    host: 'account.tencentcloudapi.com',
+    host,
     version: '2018-12-25',
     region: 'ap-guangzhou',
     secretId,

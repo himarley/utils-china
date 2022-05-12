@@ -9,17 +9,20 @@ const TencentCloudSDKHttpException = require('../http-error');
 class Serverless {
   constructor({ appid, secret_id: secretId, secret_key: secretKey, options }) {
     assert(options, 'Options should not is empty');
-
+    const hostType = process.env.SERVERLESS_TENCENT_NET_TYPE || 'outer';
     this.appid = appid;
     this.secretKey = secretKey;
     this.secretId = secretId;
     this.token = options.token;
     this.region = options.region || 'ap-guangzhou';
     this.options = options;
-
+    let host = 'sls.tencentcloudapi.com';
+    if (hostType === 'inner') {
+      host = 'sls.internal.tencentcloudapi.com';
+    }
     this._slsClient = new Capi({
       debug: false,
-      host: 'sls.tencentcloudapi.com',
+      host,
       version: '2020-02-05',
       region: this.region,
       secretId,

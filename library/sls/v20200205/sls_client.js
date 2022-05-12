@@ -50,7 +50,12 @@ const GetInstanceLogsResponse = models.GetInstanceLogsResponse;
  */
 class SlsClient extends AbstractClient {
   constructor(credential, region, profile) {
-    super('sls.tencentcloudapi.com', '2020-02-05', credential, region, profile);
+    const hostType = process.env.SERVERLESS_TENCENT_NET_TYPE || 'outer';
+    let host = 'sls.tencentcloudapi.com';
+    if (hostType === 'inner') {
+      host = 'sls.internal.tencentcloudapi.com';
+    }
+    super(host, '2020-02-05', credential, region, profile);
   }
 
   /**

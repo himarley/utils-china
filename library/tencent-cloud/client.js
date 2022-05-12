@@ -117,8 +117,13 @@ class ScfClient {
   }
 
   async request(data) {
+    const hostType = process.env.SERVERLESS_TENCENT_NET_TYPE || 'outer';
+    let host = 'scf.tencentcloudapi.com';
+    if (hostType === 'inner') {
+      host = 'scf.internal.tencentcloudapi.com';
+    }
     return await new TencentCloudClient(this.credentials, {
-      host: 'scf.tencentcloudapi.com',
+      host,
       path: '/',
     }).doCloudApiRequest(data);
   }
@@ -130,8 +135,13 @@ class TagClient {
   }
 
   async request(data) {
+    const hostType = process.env.SERVERLESS_TENCENT_NET_TYPE || 'outer';
+    let host = 'tag.tencentcloudapi.com';
+    if (hostType === 'inner') {
+      host = 'tag.internal.tencentcloudapi.com';
+    }
     return await new TencentCloudClient(this.credentials, {
-      host: 'tag.tencentcloudapi.com',
+      host,
       path: '/',
     }).doCloudApiRequest(data);
   }
@@ -156,8 +166,13 @@ class CamClient {
   }
 
   async request(data) {
+    const hostType = process.env.SERVERLESS_TENCENT_NET_TYPE || 'outer';
+    let host = 'cam.tencentcloudapi.com';
+    if (hostType === 'inner') {
+      host = 'cam.internal.tencentcloudapi.com';
+    }
     return await new TencentCloudClient(this.credentials, {
-      host: 'cam.tencentcloudapi.com',
+      host,
       path: '/',
     }).doCloudApiRequest(data);
   }
@@ -195,8 +210,13 @@ class DomainClient {
   }
 
   async request(data) {
+    const hostType = process.env.SERVERLESS_TENCENT_NET_TYPE || 'outer';
+    let host = 'domain.tencentcloudapi.com';
+    if (hostType === 'inner') {
+      host = 'domain.internal.tencentcloudapi.com';
+    }
     return await new TencentCloudClient(this.credentials, {
-      host: 'domain.tencentcloudapi.com',
+      host,
       path: '/',
     }).doCloudApiRequest(data);
   }

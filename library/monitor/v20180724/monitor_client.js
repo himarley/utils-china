@@ -42,7 +42,12 @@ const BindingPolicyObjectResponse = models.BindingPolicyObjectResponse;
  */
 class MonitorClient extends AbstractClient {
   constructor(credential, region, profile) {
-    super('monitor.tencentcloudapi.com', '2018-07-24', credential, region, profile);
+    const hostType = process.env.SERVERLESS_TENCENT_NET_TYPE || 'outer';
+    let host = 'monitor.tencentcloudapi.com';
+    if (hostType === 'inner') {
+      host = 'monitor.internal.tencentcloudapi.com';
+    }
+    super(host, '2018-07-24', credential, region, profile);
   }
 
   /**
